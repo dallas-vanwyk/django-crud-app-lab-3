@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% comment %} stylesheet {% endcomment %}
+{% endblock %}
+
+{% block content %}
+<section>
+    <ul>
+        <li>{{ vehicle.modelyear }}</li>
+        <li>{{ vehicle.make }}</li>
+        <li>{{ vehicle.model }}</li>
+    </ul>
+</section>
+{% endblock %}

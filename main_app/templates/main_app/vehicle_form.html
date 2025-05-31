@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% comment %} stylesheet {% endcomment %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Add a vehicle</h1>
+</div>
+
+<form
+    action=""
+    method="post"
+>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}
