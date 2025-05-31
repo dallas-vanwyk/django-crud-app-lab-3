@@ -13,4 +13,8 @@
         <li>{{ vehicle.model }}</li>
     </ul>
 </section>
+<div class="vehicle-actions">
+    <a href="{% url 'vehicle-update' vehicle.id %}">Edit</a>
+    <a href="{% url 'vehicle-delete' vehicle.id %}">Delete</a>
+</div>
 {% endblock %}
