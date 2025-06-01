@@ -11,4 +11,5 @@ urlpatterns = [
     path('vehicles/create/', views.VehicleCreate.as_view(), name='vehicle-create'),
     path('vehicles/<int:pk>/update/', views.VehicleUpdate.as_view(), name='vehicle-update'),
     path('vehicles/<int:pk>/delete/', views.VehicleDelete.as_view(), name='vehicle-delete'),
+    path('vehicles/<int:vehicle_id>/add-maintenance/', views.add_maintenance, name='add-maintenance')
 ]

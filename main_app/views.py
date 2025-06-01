@@ -1,9 +1,10 @@
 # main_app/views.py
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Vehicle
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import MaintenanceForm
 
 def home(req):
     return render(req, 'home.html')
@@ -17,7 +18,11 @@ def vehicle_index(req):
 
 def vehicle_detail(req, vehicle_id):
     vehicle = Vehicle.objects.get(id=vehicle_id)
-    return render(req, 'vehicles/detail.html', {'vehicle': vehicle})
+    maintenance_form = MaintenanceForm()
+    return render(req, 'vehicles/detail.html', {
+        'vehicle': vehicle,
+        'maintenance_form': maintenance_form,
+    })
 
 class VehicleCreate(CreateView):
     model = Vehicle
@@ -30,3 +35,11 @@ class VehicleUpdate(UpdateView):
 class VehicleDelete(DeleteView):
     model = Vehicle
     success_url = '/vehicles/'
+
+def add_maintenance(req, vehicle_id):
+    form = MaintenanceForm(req.POST)
+    if form.is_valid():
+        new_maintenance = form.save(commit=False)
+        new_maintenance.vehicle_id = vehicle_id
+        new_maintenance.save()
+    return redirect('vehicle-detail', vehicle_id=vehicle_id)

@@ -13,8 +13,47 @@
         <li>{{ vehicle.model }}</li>
     </ul>
 </section>
+
 <div class="vehicle-actions">
     <a href="{% url 'vehicle-update' vehicle.id %}">Edit</a>
     <a href="{% url 'vehicle-delete' vehicle.id %}">Delete</a>
 </div>
+
+<div>
+    <h2>Record Maintenance</h2>
+    <form
+        action="{% url 'add-maintenance' vehicle.id %}"
+        method="post"
+        autocomplete="off"
+    >
+        {% csrf_token %}
+        {{ maintenance_form.as_p }}
+        <button type="submit">Add maintenance record</button>
+    </form>
+</div>
+
+<div>
+    <h2>Maintenance History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Mileage</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for maintenance in vehicle.maintenance_set.all %}
+            <tr>
+                <th>{{maintenance.date}}</th>
+                <th>{{maintenance.mileage}}</th>
+                <th>{{maintenance.category}}</th>
+                <th>{{maintenance.description}}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
